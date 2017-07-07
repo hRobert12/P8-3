@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Do You Know Math?</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="question_startup_val">test</string>
+    <string name="text_input_hint">Type the answer</string>
+    <string name="next">Next</string>
+    <string name="last_q_button_text">Finish</string>
+    <string name="end_button_text">Restart</string>
+    <string name="end_display_text">You finished!</string>
+    <string name="end_toast_part_one">"You finished with a score of "</string>
+    <string name="end_toast_part_two">" out of a possible "</string>
+    <string name="defualt_button_text">Next</string>
+    <string name="error_type_invalid">Error checking answer, see log for details</string>
+    <string name="error">Error checking answer</string>
+    <string name="enter_text">Enter text...</string>
+</resources>

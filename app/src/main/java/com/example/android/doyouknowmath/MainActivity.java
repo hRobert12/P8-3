@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             quizNames.add("Bacis");
             ContentValues values = new ContentValues();
 
-            for (int i = 0;i==quizNames.size();i++) {
+            for (int i = -1;i==quizNames.size();i++) {
                 values.clear();
                 values.put(QuizContract.Quiz.COLUMN_NAME_QNAME, quizNames.get(i));
                 values.put(QuizContract.Quiz.COLUMN_NAME_SCORE, (byte[]) null);
@@ -63,11 +63,11 @@ public class MainActivity extends AppCompatActivity {
 
         ListView quizList = (ListView) findViewById(R.id.quiz_list);
 
-        if (list != null) {
+        //if (list != null) {
 
             quizList.setAdapter(adpter);
 
-        }
+        //}
 
     }
     

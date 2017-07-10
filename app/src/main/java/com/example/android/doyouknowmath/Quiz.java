@@ -212,6 +212,9 @@ public class Quiz extends AppCompatActivity {
             score = 0;
 
             startActivity(new Intent(Quiz.this, MainActivity.class));
+
+            sendBroadcast(new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
+                    AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(QuizOver.mContext, QuizOver.class))));
         }
 
     }

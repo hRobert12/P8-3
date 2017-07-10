@@ -38,7 +38,7 @@ public class QuizOver extends AppWidgetProvider {
         PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
                 .addNextIntentWithParentStack(clickIntentTemplate)
                 .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        rv.setPendingIntentTemplate(R.id.quiz_list, clickPendingIntentTemplate);
+        rv.setPendingIntentTemplate(R.id.quiz_over_id, clickPendingIntentTemplate);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, rv);

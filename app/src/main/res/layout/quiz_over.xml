@@ -5,6 +5,7 @@
     android:padding="@dimen/widget_margin">
 
     <ListView
+        android:id="@+id/quiz_over_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

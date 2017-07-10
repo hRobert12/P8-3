@@ -10,6 +10,9 @@ import android.widget.ListView;
 
 import com.example.android.doyouknowmath.Data.QuizContract;
 import com.example.android.doyouknowmath.Data.QuizDbHelper;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 
@@ -23,15 +26,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
 //
 //        mInterstitialAd = new InterstitialAd(this);
 //        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 //        requestNewInterstitial();
-//
-//        AdView mAdView = (AdView) findViewById(R.id.ad);
-//        AdRequest adRequest = new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build();
-//        mAdView.loadAd(adRequest);
+//AdRequest.DEVICE_ID_EMULATOR
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("470-155807809")
+                .build();
+        mAdView.loadAd(adRequest);
 
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
@@ -39,17 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
             QuizDbHelper dbHelper = new QuizDbHelper(this);
             SQLiteDatabase db = dbHelper.getWritableDatabase();
-            ArrayList<String> quizNames = new ArrayList<>();
-            quizNames.add("Bacis");
             ContentValues values = new ContentValues();
 
-            for (int i = -1;i==quizNames.size();i++) {
-                values.clear();
-                values.put(QuizContract.Quiz.COLUMN_NAME_QNAME, quizNames.get(i));
-                values.put(QuizContract.Quiz.COLUMN_NAME_SCORE, (byte[]) null);
+            values.clear();
+            values.put(QuizContract.Quiz.COLUMN_NAME_QNAME, "Bacis");
+            values.put(QuizContract.Quiz.COLUMN_NAME_SCORE, (byte[]) null);
 
-                db.insert(QuizContract.Quiz.TABLE_NAME, null, values);
-            }
+            db.insert(QuizContract.Quiz.TABLE_NAME, null, values);
 
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("init", true);
@@ -86,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
         if (c.moveToFirst()) {
             for (int i = 0; i < c.getCount(); i++) {
                 c.moveToPosition(i);
-                arrayList.add(new QuizItem(c.getInt(COLUMN_INDEX_QNAME),
-                        c.getString(COLUMN_INDEX_SCORE)));
+                arrayList.add(new QuizItem(c.getInt(COLUMN_INDEX_SCORE),
+                        c.getString(COLUMN_INDEX_QNAME)));
             }
         } else {
             c.close();

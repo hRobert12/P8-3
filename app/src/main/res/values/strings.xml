@@ -6,7 +6,7 @@
     <string name="text_input_hint">Type the answer</string>
     <string name="next">Next</string>
     <string name="last_q_button_text">Finish</string>
-    <string name="end_button_text">Restart</string>
+    <string name="end_button_text">Back</string>
     <string name="end_display_text">You finished!</string>
     <string name="end_toast_part_one">"You finished with a score of "</string>
     <string name="end_toast_part_two">" out of a possible "</string>

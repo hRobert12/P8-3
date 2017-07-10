@@ -23,12 +23,19 @@ import java.util.List;
 public class QuizAdpter extends ArrayAdapter<QuizItem> {
 
     Activity currentActivity;
+    boolean openQuiz = true;
 
     public Context mContext;
     public QuizAdpter(@NonNull Context context, @LayoutRes int resource, @NonNull List<QuizItem> objects, @NonNull Activity activity) {
         super(context, resource, objects);
         mContext = context;
         currentActivity = activity;
+    }
+
+    public QuizAdpter(@NonNull Context context, @LayoutRes int resource, @NonNull List<QuizItem> objects) {
+        super(context, resource, objects);
+        mContext = context;
+        openQuiz = false;
     }
 
     @Override
@@ -43,18 +50,31 @@ public class QuizAdpter extends ArrayAdapter<QuizItem> {
         name.setText(currentItem.getName());
 
         TextView price = (TextView) convertView.findViewById(R.id.quiz_score);
-        price.setText(String.valueOf(currentItem.getScore()));
+
+//        if (currentItem.getScore() == 0) {
+//            price.setText("Not completed");
+//        } else {
+            price.setText(String.valueOf(currentItem.getScore()) + "%");
+        //}
 
         RelativeLayout quiz = (RelativeLayout) convertView.findViewById(R.id.quiz);
         quiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), Quiz.class);
-                intent.putExtra("name", currentItem.getName());
+                Intent intent;
+                if (openQuiz) {
+                    intent = new Intent(getContext(), Quiz.class);
+                    intent.putExtra("name", currentItem.getName());
 
-                Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(currentActivity).toBundle();
+                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(currentActivity).toBundle();
 
-                getContext().startActivity(intent, bundle);
+                    getContext().startActivity(intent, bundle);
+                } else {
+                    intent = new Intent(getContext(), MainActivity.class);
+
+                    getContext().startActivity(intent);
+                }
+
             }
         });
 

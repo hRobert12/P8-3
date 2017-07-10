@@ -1,5 +1,8 @@
 package com.example.android.doyouknowmath;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,6 +16,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.doyouknowmath.Data.QuizContract;
+import com.example.android.doyouknowmath.Data.QuizDbHelper;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,6 +58,7 @@ public class Quiz extends AppCompatActivity {
     Button submit;
 
     //Define needed variables and arrays
+    String currentQuiz;
 
     boolean[] radioChecked = {
             false,
@@ -103,6 +109,8 @@ public class Quiz extends AppCompatActivity {
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         configure();
+
+        currentQuiz = getIntent().getStringExtra("name");
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Quiz1").child("Question1");
@@ -168,19 +176,32 @@ public class Quiz extends AppCompatActivity {
                 answerCheckboxGroup.setVisibility(View.GONE);
                 answerTextField.setVisibility(View.GONE);
                 answerRadioGroup.setVisibility(View.GONE);
-                question.setText(R.string.end_display_text);
-                Toast.makeText(Quiz.this, getString(R.string.end_toast_part_one) + score + getString(R.string.end_toast_part_two) + questions.length, Toast.LENGTH_SHORT).show();
+                question.setText(getString(R.string.end_toast_part_one) + score + getString(R.string.end_toast_part_two) + questions.length);
+                Toast.makeText(Quiz.this, R.string.end_display_text, Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
                 bundle.putInt("Score", score);
                 mFirebaseAnalytics.logEvent("finish_quiz", bundle);
             }
 
         } else {
+
+            QuizDbHelper dbHelper = new QuizDbHelper(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+
+            values.put(QuizContract.Quiz.COLUMN_NAME_QNAME, currentQuiz);
+            values.put(QuizContract.Quiz.COLUMN_NAME_SCORE, (score / questions.length) * 100);
+
+            db.delete(QuizContract.Quiz.TABLE_NAME, QuizContract.Quiz.COLUMN_NAME_QNAME + "=\'" + currentQuiz + "\'", null);
+
+            db.insert(QuizContract.Quiz.TABLE_NAME, null, values);
+
             submit.setText(R.string.defualt_button_text);
             questionNumber = 0;
-            loadQuestion(questionNumber);
             hasCompleted = false;
             score = 0;
+
+            startActivity(new Intent(Quiz.this, MainActivity.class));
         }
 
     }

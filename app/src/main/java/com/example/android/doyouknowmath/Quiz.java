@@ -1,5 +1,7 @@
 package com.example.android.doyouknowmath;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -199,7 +201,8 @@ public class Quiz extends AppCompatActivity {
 
             db.insert(QuizContract.Quiz.TABLE_NAME, null, values);
 
-            /*LocalBroadcastManager.getInstance(this).*/sendBroadcast(new Intent("ACTION_APPWIDGET_RESTORED").putExtra("name", "value"));
+            /*LocalBroadcastManager.getInstance(this).*/sendBroadcast(new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
+                    AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(QuizOver.mContext, QuizOver.class))));
 
             //AppWidgetManager.getInstance(this).notifyAppWidgetViewDataChanged(AppWidgetManager.getInstance(this).getAppWidgetIds(AppWidgetManager.getInstance(this)), R.id.quiz_over_id);
 

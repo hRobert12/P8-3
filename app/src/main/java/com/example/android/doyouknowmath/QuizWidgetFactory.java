@@ -21,6 +21,11 @@ public class QuizWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
     private Context context;
     private int posOfID;
 
+    QuizWidgetFactory(Context context) {
+        super();
+        this.context = context;
+    }
+
     @Override
     public void onCreate() {
 
@@ -39,9 +44,7 @@ public class QuizWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     @Override
     public int getCount() {
-
-        context = QuizApp.getContext();
-
+        
         QuizDbHelper dbHelper = new QuizDbHelper(context);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         cursor = db.query(QuizContract.Quiz.TABLE_NAME, null, null, null, null, null, null);

@@ -10,6 +10,6 @@ import android.widget.RemoteViewsService;
 public class QuizWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new QuizWidgetFactory();
+        return new QuizWidgetFactory(this);
     }
 }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "432582237875",
+    "firebase_url": "https://do-you-know-math.firebaseio.com",
+    "project_id": "do-you-know-math",
+    "storage_bucket": "do-you-know-math.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432582237875:android:c0bd8994c2a6a134",
+        "android_client_info": {
+          "package_name": "com.example.android.doyouknowmath"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432582237875-nqo73ogk0im6ei6k390c40vgroe1fjgh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrSetpNRxjDDKkP1bNxi_Ef-gbgWqOc3s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -200,7 +199,7 @@ public class Quiz extends AppCompatActivity {
 
             db.insert(QuizContract.Quiz.TABLE_NAME, null, values);
 
-            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("ACTION_APPWIDGET_UPDATE"));
+            /*LocalBroadcastManager.getInstance(this).*/sendBroadcast(new Intent("ACTION_APPWIDGET_RESTORED").putExtra("name", "value"));
 
             //AppWidgetManager.getInstance(this).notifyAppWidgetViewDataChanged(AppWidgetManager.getInstance(this).getAppWidgetIds(AppWidgetManager.getInstance(this)), R.id.quiz_over_id);
 

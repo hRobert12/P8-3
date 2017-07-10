@@ -89,5 +89,9 @@ public class QuizOver extends AppWidgetProvider {
 
         return arrayList;
     }
+
+//    static QuizOver getProvider() {
+//        return AppWidgetManager.getInstance(mContext).;
+//    }
 }
 

@@ -191,13 +191,18 @@ public class Quiz extends AppCompatActivity {
             ContentValues values = new ContentValues();
 
             values.put(QuizContract.Quiz.COLUMN_NAME_QNAME, currentQuiz);
-            values.put(QuizContract.Quiz.COLUMN_NAME_SCORE, (score / questions.length) * 100);
+
+            float calcScore = (float) score / questions.length;
+
+            values.put(QuizContract.Quiz.COLUMN_NAME_SCORE, calcScore * 100.0);
 
             db.delete(QuizContract.Quiz.TABLE_NAME, QuizContract.Quiz.COLUMN_NAME_QNAME + "=\'" + currentQuiz + "\'", null);
 
             db.insert(QuizContract.Quiz.TABLE_NAME, null, values);
 
-            LocalBroadcastManager.sendBroadcast(new Intent("ACTION_APPWIDGET_UPDATE"));
+            LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("ACTION_APPWIDGET_UPDATE"));
+
+            //AppWidgetManager.getInstance(this).notifyAppWidgetViewDataChanged(AppWidgetManager.getInstance(this).getAppWidgetIds(AppWidgetManager.getInstance(this)), R.id.quiz_over_id);
 
             submit.setText(R.string.defualt_button_text);
             questionNumber = 0;

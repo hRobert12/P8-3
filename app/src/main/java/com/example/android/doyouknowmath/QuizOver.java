@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class QuizOver extends AppWidgetProvider {
 
     static Context mContext;
+    static public int[] IDList;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -47,6 +48,7 @@ public class QuizOver extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
+        IDList = appWidgetIds;
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }

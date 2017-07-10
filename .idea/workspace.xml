@@ -74,8 +74,8 @@
       <file leaf-file-name="QuizWidgetFactory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="577">
-              <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+            <state relative-caret-position="203">
+              <caret line="39" column="63" selection-start-line="39" selection-start-column="63" selection-end-line="39" selection-end-column="63" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -2250,8 +2250,8 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizOver.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetService.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java" />
       </list>
     </option>
   </component>
@@ -2903,37 +2903,37 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java</url>
-          <line>40</line>
+          <line>44</line>
           <properties class="com.example.android.doyouknowmath.QuizWidgetFactory" />
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java</url>
-          <line>56</line>
+          <line>54</line>
           <properties class="com.example.android.doyouknowmath.QuizWidgetFactory" />
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java</url>
-          <line>75</line>
+          <line>73</line>
           <properties class="com.example.android.doyouknowmath.QuizWidgetFactory" />
           <option name="timeStamp" value="24" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java</url>
-          <line>80</line>
+          <line>78</line>
           <properties class="com.example.android.doyouknowmath.QuizWidgetFactory" method="getLoadingView" />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java</url>
-          <line>85</line>
+          <line>83</line>
           <properties class="com.example.android.doyouknowmath.QuizWidgetFactory" method="getViewTypeCount" />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java</url>
-          <line>91</line>
+          <line>89</line>
           <properties class="com.example.android.doyouknowmath.QuizWidgetFactory" />
           <option name="timeStamp" value="27" />
         </line-breakpoint>
@@ -3340,8 +3340,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="46" column="8" selection-start-line="46" selection-start-column="8" selection-end-line="46" selection-end-column="8" />
+        <state relative-caret-position="203">
+          <caret line="39" column="63" selection-start-line="39" selection-start-column="63" selection-end-line="39" selection-end-column="63" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

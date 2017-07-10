@@ -33,7 +33,11 @@ public class QuizWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     @Override
     public void onDataSetChanged() {
+        QuizDbHelper dbHelper = new QuizDbHelper(context);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        cursor = db.query(QuizContract.Quiz.TABLE_NAME, null, null, null, null, null, null);
 
+        posOfID = cursor.getColumnIndex(QuizContract.Quiz._ID);
     }
 
     @Override
@@ -44,12 +48,6 @@ public class QuizWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     @Override
     public int getCount() {
-        
-        QuizDbHelper dbHelper = new QuizDbHelper(context);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        cursor = db.query(QuizContract.Quiz.TABLE_NAME, null, null, null, null, null, null);
-
-        posOfID = cursor.getColumnIndex(QuizContract.Quiz._ID);
 
         int count = 0;
         if (cursor != null) {

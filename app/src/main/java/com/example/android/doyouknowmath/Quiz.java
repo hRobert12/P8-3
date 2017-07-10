@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -195,6 +196,8 @@ public class Quiz extends AppCompatActivity {
             db.delete(QuizContract.Quiz.TABLE_NAME, QuizContract.Quiz.COLUMN_NAME_QNAME + "=\'" + currentQuiz + "\'", null);
 
             db.insert(QuizContract.Quiz.TABLE_NAME, null, values);
+
+            LocalBroadcastManager.sendBroadcast(new Intent("ACTION_APPWIDGET_UPDATE"));
 
             submit.setText(R.string.defualt_button_text);
             questionNumber = 0;

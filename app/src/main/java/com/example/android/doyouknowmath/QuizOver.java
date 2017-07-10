@@ -32,7 +32,7 @@ public class QuizOver extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
         RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.quiz_over);
-        rv.setRemoteAdapter(R.id.quiz_list, intent);
+        rv.setRemoteAdapter(R.id.quiz_over_id, intent);
 
         Intent clickIntentTemplate = new Intent(context, MainActivity.class);
         PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)

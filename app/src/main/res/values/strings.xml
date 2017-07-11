@@ -13,5 +13,5 @@
     <string name="defualt_button_text">Next</string>
     <string name="error_type_invalid">Error checking answer, see log for details</string>
     <string name="error">Error checking answer</string>
-    <string name="enter_text">Enter text...</string>
+    <string name="enter_text">Enter the answer…</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,19 +32,6 @@ public class Quiz extends AppCompatActivity {
 
     private FirebaseAnalytics mFirebaseAnalytics;
     private DatabaseReference mDatabase;
-
-
-    ValueEventListener valueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            dataSnapshot.getValue();
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    };
 
     RadioGroup answerRadioGroup;
     RadioButton aRadio;
@@ -76,33 +64,40 @@ public class Quiz extends AppCompatActivity {
             false
     };
 
-    String[] questions = {
-            "What is 1+1?",
-            "Simplify 18/20",
-            "What makes up 50?",
-            "What is 15/3?",
-            "Which expressions evaluate to 16?"
-    };
-
-    String[][] answers = {
-            {"2", "txt"},
-            {"B", "mcr"},
-            {"ACD", "mcc"},
-            {"5", "txt"},
-            {"BD", "mcc"}
-    };
-
-    String[][] possibleAnswers = {
-            {},
-            {"4/5", "9/10", "10/9", "3/5"},
-            {"5", "3", "2", "5"},
-            {},
-            {"5*3", "8+8", "4*3", "4*4"}
-    };
+//    String[] questions = {
+//            "What is 1+1?",
+//            "Simplify 18/20",
+//            "What makes up 50?",
+//            "What is 15/3?",
+//            "Which expressions evaluate to 16?"
+//    };
+//
+//    String[][] answers = {
+//            {"2", "txt"},
+//            {"B", "mcr"},
+//            {"ACD", "mcc"},
+//            {"5", "txt"},
+//            {"BD", "mcc"}
+//    };
+//
+//    String[][] possibleAnswers = {
+//            {},
+//            {"4/5", "9/10", "10/9", "3/5"},
+//            {"5", "3", "2", "5"},
+//            {},
+//            {"5*3", "8+8", "4*3", "4*4"}
+//    };
 
     int questionNumber = 0;
     int score = 0;
     boolean hasCompleted = false;
+
+    int numberOfQuestions = 0;
+    Question d;
+    String currentQuestion;
+    String answer;
+    String answerType;
+    String answers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,37 +109,77 @@ public class Quiz extends AppCompatActivity {
 
         currentQuiz = getIntent().getStringExtra("name");
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Quiz1").child("Question1");
-        answerRadioGroup.setVisibility(View.GONE);
-        answerCheckboxGroup.setVisibility(View.GONE);
-        answerTextField.setVisibility(View.GONE);
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                mDatabase = FirebaseDatabase.getInstance().getReference();
+                int questionID = questionNumber;
+                mDatabase.child("Quiz1").child("Question" + (questionID + 1)).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        d = dataSnapshot.getValue(Question.class);
 
-        int questionID = questionNumber;
+                        Log.d("quizRTDB", "onDataChange: Data:" + d.toString());
+                    }
 
-        question.setText(questions[questionID]);
-        if (answers[questionID][1] == "mcr") {
-            answerRadioGroup.setVisibility(View.VISIBLE);
-            aRadio.setText(possibleAnswers[questionID][0]);
-            bRadio.setText(possibleAnswers[questionID][1]);
-            cRadio.setText(possibleAnswers[questionID][2]);
-            dRadio.setText(possibleAnswers[questionID][3]);
-        } else if (answers[questionID][1] == "mcc") {
-            aCheckbox.setChecked(false);
-            bCheckbox.setChecked(false);
-            cCheckbox.setChecked(false);
-            dCheckbox.setChecked(false);
-            answerCheckboxGroup.setVisibility(View.VISIBLE);
-            aCheckbox.setText(possibleAnswers[questionID][0]);
-            bCheckbox.setText(possibleAnswers[questionID][1]);
-            cCheckbox.setText(possibleAnswers[questionID][2]);
-            dCheckbox.setText(possibleAnswers[questionID][3]);
-        } else if (answers[questionID][1] == "txt") {
-            answerTextField.setVisibility(View.VISIBLE);
-            answerTextField.setText("");
-        } else {
-            Log.w("MainActivity/QLoader", "Invalid answer type in answers");
-        }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("quizRTDB", "onCancelled: Failed to download data!", databaseError.toException());
+                    }
+                });
+                mDatabase.child("Quiz1").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Number number = dataSnapshot.getValue(Number.class);
+
+                        numberOfQuestions = number.Number;
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("quizRTDB", "onCancelled: Failed to download number of questions!", databaseError.toException());
+                    }
+                });
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                currentQuestion = d.Question;
+                answer = d.Answer;
+                answerType = d.AnswerType;
+                answers = d.Answers;
+
+                answerRadioGroup.setVisibility(View.GONE);
+                answerCheckboxGroup.setVisibility(View.GONE);
+                answerTextField.setVisibility(View.GONE);
+
+                question.setText(currentQuestion);
+                if (answerType == "mcr") {
+                    answerRadioGroup.setVisibility(View.VISIBLE);
+                    aRadio.setText(answers.split(",")[0]);
+                    bRadio.setText(answers.split(",")[1]);
+                    cRadio.setText(answers.split(",")[2]);
+                    dRadio.setText(answers.split(",")[3]);
+                } else if (answerType == "mcc") {
+                    aCheckbox.setChecked(false);
+                    bCheckbox.setChecked(false);
+                    cCheckbox.setChecked(false);
+                    dCheckbox.setChecked(false);
+                    answerCheckboxGroup.setVisibility(View.VISIBLE);
+                    aCheckbox.setText(answers.split(",")[0]);
+                    bCheckbox.setText(answers.split(",")[1]);
+                    cCheckbox.setText(answers.split(",")[2]);
+                    dCheckbox.setText(answers.split(",")[3]);
+                } else if (answerType == "txt") {
+                    answerTextField.setVisibility(View.VISIBLE);
+                    answerTextField.setText("");
+                } else {
+                    Log.w("MainActivity/QLoader", "Invalid answer type in RTDB");
+                }
+            }
+        }.execute();
     }
 
     public void radioButtonClick(View view) {
@@ -169,7 +204,7 @@ public class Quiz extends AppCompatActivity {
                 score += 1;
             }
 
-            if (questionNumber + 1 < questions.length) {
+            if (questionNumber + 1 < numberOfQuestions) {
                 questionNumber += 1;
                 loadQuestion(questionNumber);
             } else {
@@ -178,7 +213,7 @@ public class Quiz extends AppCompatActivity {
                 answerCheckboxGroup.setVisibility(View.GONE);
                 answerTextField.setVisibility(View.GONE);
                 answerRadioGroup.setVisibility(View.GONE);
-                question.setText(getString(R.string.end_toast_part_one) + score + getString(R.string.end_toast_part_two) + questions.length);
+                question.setText(getString(R.string.end_toast_part_one) + score + getString(R.string.end_toast_part_two) + numberOfQuestions);
                 Toast.makeText(Quiz.this, R.string.end_display_text, Toast.LENGTH_SHORT).show();
                 Bundle bundle = new Bundle();
                 bundle.putInt("Score", score);
@@ -193,7 +228,7 @@ public class Quiz extends AppCompatActivity {
 
             values.put(QuizContract.Quiz.COLUMN_NAME_QNAME, currentQuiz);
 
-            float calcScore = (float) score / questions.length;
+            float calcScore = (float) score / numberOfQuestions;
 
             values.put(QuizContract.Quiz.COLUMN_NAME_SCORE, calcScore * 100.0);
 
@@ -203,8 +238,6 @@ public class Quiz extends AppCompatActivity {
 
             /*LocalBroadcastManager.getInstance(this).*/sendBroadcast(new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
                     AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(QuizOver.mContext, QuizOver.class))));
-
-            //AppWidgetManager.getInstance(this).notifyAppWidgetViewDataChanged(AppWidgetManager.getInstance(this).getAppWidgetIds(AppWidgetManager.getInstance(this)), R.id.quiz_over_id);
 
             submit.setText(R.string.defualt_button_text);
             questionNumber = 0;
@@ -220,32 +253,52 @@ public class Quiz extends AppCompatActivity {
     }
 
     public void loadQuestion(int questionID) {
+
+        mDatabase.child("Quiz1").child("Question" + questionID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                d = dataSnapshot.getValue(Question.class);
+
+                Log.d("quizRTDB", "onDataChange: Data:" + d.toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("quizRTDB", "onCancelled: Failed to download data!", databaseError.toException());
+            }
+        });
+
+        currentQuestion = d.Question;
+        answer = d.Answer;
+        answerType = d.AnswerType;
+        answers = d.Answers;
+
         answerRadioGroup.setVisibility(View.GONE);
         answerCheckboxGroup.setVisibility(View.GONE);
         answerTextField.setVisibility(View.GONE);
 
-        question.setText(questions[questionID]);
-        if (answers[questionID][1] == "mcr") {
+        question.setText(currentQuestion);
+        if (answerType == "mcr") {
             answerRadioGroup.setVisibility(View.VISIBLE);
-            aRadio.setText(possibleAnswers[questionID][0]);
-            bRadio.setText(possibleAnswers[questionID][1]);
-            cRadio.setText(possibleAnswers[questionID][2]);
-            dRadio.setText(possibleAnswers[questionID][3]);
-        } else if (answers[questionID][1] == "mcc") {
+            aRadio.setText(answers.split(",")[0]);
+            bRadio.setText(answers.split(",")[1]);
+            cRadio.setText(answers.split(",")[2]);
+            dRadio.setText(answers.split(",")[3]);
+        } else if (answerType == "mcc") {
             aCheckbox.setChecked(false);
             bCheckbox.setChecked(false);
             cCheckbox.setChecked(false);
             dCheckbox.setChecked(false);
             answerCheckboxGroup.setVisibility(View.VISIBLE);
-            aCheckbox.setText(possibleAnswers[questionID][0]);
-            bCheckbox.setText(possibleAnswers[questionID][1]);
-            cCheckbox.setText(possibleAnswers[questionID][2]);
-            dCheckbox.setText(possibleAnswers[questionID][3]);
-        } else if (answers[questionID][1] == "txt") {
+            aCheckbox.setText(answers.split(",")[0]);
+            bCheckbox.setText(answers.split(",")[1]);
+            cCheckbox.setText(answers.split(",")[2]);
+            dCheckbox.setText(answers.split(",")[3]);
+        } else if (answerType == "txt") {
             answerTextField.setVisibility(View.VISIBLE);
             answerTextField.setText("");
         } else {
-            Log.w("MainActivity/QLoader", "Invalid answer type in answers");
+            Log.w("MainActivity/QLoader", "Invalid answer type in RTDB");
         }
     }
 
@@ -268,37 +321,37 @@ public class Quiz extends AppCompatActivity {
 
     private boolean checkAnswer() {
 
-        if (answers[questionNumber][1] == "mcr") {
-            if (answers[questionNumber][0] == "A") {
+        if (answerType == "mcr") {
+            if (answer == "A") {
                 return aRadio.isChecked();
             }
-            if (answers[questionNumber][0] == "B") {
+            if (answer == "B") {
                 return bRadio.isChecked();
             }
-            if (answers[questionNumber][0] == "C") {
+            if (answer == "C") {
                 return cRadio.isChecked();
             }
-            if (answers[questionNumber][0] == "D") {
+            if (answer == "D") {
                 return dRadio.isChecked();
             }
-        } else if (answers[questionNumber][1] == "mcc") {
+        } else if (answerType == "mcc") {
             boolean[] correctAnswer = {false, false, false, false};
-            if (answers[questionNumber][0].contains("A")) {
+            if (answer.contains("A")) {
                 correctAnswer[0] = true;
             }
-            if (answers[questionNumber][0].contains("B")) {
+            if (answer.contains("B")) {
                 correctAnswer[1] = true;
             }
-            if (answers[questionNumber][0].contains("C")) {
+            if (answer.contains("C")) {
                 correctAnswer[2] = true;
             }
-            if (answers[questionNumber][0].contains("D")) {
+            if (answer.contains("D")) {
                 correctAnswer[3] = true;
             }
             return (compareArrays(correctAnswer, checkboxChecked));
 
-        } else if (answers[questionNumber][1] == "txt") {
-            String correct = answers[questionNumber][0];
+        } else if (answerType == "txt") {
+            String correct = answer;
             return (correct.equalsIgnoreCase(answerTextField.getText().toString()));
         } else {
             Toast.makeText(Quiz.this, R.string.error_type_invalid, Toast.LENGTH_LONG).show();

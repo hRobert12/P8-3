@@ -3,6 +3,7 @@ package com.example.android.doyouknowmath;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -50,6 +51,7 @@ public class QuizOver extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         IDList = appWidgetIds;
         for (int appWidgetId : appWidgetIds) {
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetManager.getAppWidgetIds(new ComponentName(context, QuizOver.class)), R.id.quiz_over_id);
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }

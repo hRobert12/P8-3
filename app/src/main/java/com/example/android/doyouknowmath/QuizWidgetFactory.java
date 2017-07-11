@@ -38,6 +38,8 @@ public class QuizWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         cursor = db.query(QuizContract.Quiz.TABLE_NAME, null, null, null, null, null, null);
 
         posOfID = cursor.getColumnIndex(QuizContract.Quiz._ID);
+        db.close();
+        db = null;
     }
 
     @Override
@@ -66,7 +68,7 @@ public class QuizWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         ArrayList<QuizItem> quizList = grabData(cursor);
 
         views.setTextViewText(R.id.quiz_name, quizList.get(i).getName());
-        views.setTextViewText(R.id.quiz_score, String.valueOf(quizList.get(i).getScore()));
+        views.setTextViewText(R.id.quiz_score, String.valueOf(quizList.get(i).getScore()) + "%");
 
         final Intent fillInIntent = new Intent();
 

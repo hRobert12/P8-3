@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:textAllCaps="true"
             android:onClick="submitAnswer"
-            android:text="Next" />
+            android:text="@string/next" />
 
 
     </LinearLayout>

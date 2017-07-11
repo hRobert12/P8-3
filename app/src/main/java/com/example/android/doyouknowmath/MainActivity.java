@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
@@ -16,15 +18,22 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String PREFS_NAME = "init";
     QuizAdpter adpter;
+    ArrayList<QuizItem> list;
+    @BindView(R.id.adView) AdView mAdView;
+    @BindView(R.id.quiz_list) ListView quizList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
 //
@@ -32,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 //        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
 //        requestNewInterstitial();
 //AdRequest.DEVICE_ID_EMULATOR
-        AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice("470-155807809")
                 .build();
@@ -58,25 +66,39 @@ public class MainActivity extends AppCompatActivity {
             editor.apply();
         }
 
-        ArrayList<QuizItem> list = grabData(readData());
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                list = grabData(readData());
+                return null;
+            }
 
-        adpter = new QuizAdpter(this, R.layout.list_item, list, this);
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                adpter = new QuizAdpter(MainActivity.this, R.layout.list_item, list, MainActivity.this);
 
-        ListView quizList = (ListView) findViewById(R.id.quiz_list);
+                //if (list != null) {
 
-        //if (list != null) {
+                quizList.setAdapter(adpter);
 
-            quizList.setAdapter(adpter);
+                //}
+            }
+        }.execute();
 
-        //}
+
+
+
 
     }
     
     private Cursor readData() {
-        QuizDbHelper dbHelper = new QuizDbHelper(this);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        
-        return db.query(QuizContract.Quiz.TABLE_NAME, null, null, null, null, null ,null);
+        return getContentResolver().query(
+                Uri.parse("content://com.example.android.doyouknowmath/Quizes"),
+                null,
+                null,
+                null,
+                null);
     }
 
     private ArrayList<QuizItem> grabData(Cursor c) {

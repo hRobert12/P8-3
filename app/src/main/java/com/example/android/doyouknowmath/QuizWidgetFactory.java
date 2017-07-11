@@ -3,12 +3,12 @@ package com.example.android.doyouknowmath;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.example.android.doyouknowmath.Data.QuizContract;
-import com.example.android.doyouknowmath.Data.QuizDbHelper;
 
 import java.util.ArrayList;
 
@@ -33,13 +33,26 @@ public class QuizWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     @Override
     public void onDataSetChanged() {
-        QuizDbHelper dbHelper = new QuizDbHelper(context);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        cursor = db.query(QuizContract.Quiz.TABLE_NAME, null, null, null, null, null, null);
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                cursor = context.getContentResolver().query(
+                        Uri.parse("content://com.example.android.doyouknowmath/Quizes"),
+                        null,
+                        null,
+                        null,
+                        null);
+                return null;
+            }
 
-        posOfID = cursor.getColumnIndex(QuizContract.Quiz._ID);
-        db.close();
-        db = null;
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                posOfID = cursor.getColumnIndex(QuizContract.Quiz._ID);
+            }
+        }.execute();
+
+
     }
 
     @Override
@@ -70,7 +83,7 @@ public class QuizWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
         views.setTextViewText(R.id.quiz_name, quizList.get(i).getName());
         views.setTextViewText(R.id.quiz_score, String.valueOf(quizList.get(i).getScore()) + "%");
 
-        final Intent fillInIntent = new Intent();
+        final Intent fillInIntent = new Intent(context, MainActivity.class);
 
         views.setOnClickFillInIntent(R.id.quiz, fillInIntent);
 

@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by Robert on 5/6/2017.
  */
@@ -79,5 +82,15 @@ public class QuizAdpter extends ArrayAdapter<QuizItem> {
         });
 
         return convertView;
+    }
+
+    class ViewHolder {
+        @BindView(R.id.quiz_name) TextView name;
+        @BindView(R.id.quiz_score) TextView score;
+        @BindView(R.id.quiz) TextView quiz;
+
+        ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }

@@ -38,7 +38,7 @@ public class QuizContentProvider extends ContentProvider {
          * used. "content://com.example.app.provider/table3/3" matches, but
          * "content://com.example.app.provider/table3 doesn't.
          */
-        sUriMatcher.addURI("com.example.app.provider", "Quizes/#", 2);
+        sUriMatcher.addURI("com.example.android.doyouknowmath", "Quizes/#", 2);
     }
 
     @Override

@@ -14,4 +14,5 @@
     <string name="error_type_invalid">Error checking answer, see log for details</string>
     <string name="error">Error checking answer</string>
     <string name="enter_text">Enter the answer…</string>
+    <string name="MainAd">ca-app-pub-3940256099942544/6300978111</string>
 </resources>

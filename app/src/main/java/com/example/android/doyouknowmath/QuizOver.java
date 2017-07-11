@@ -3,19 +3,21 @@ package com.example.android.doyouknowmath;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.example.android.doyouknowmath.Data.QuizContract;
 import com.example.android.doyouknowmath.Data.QuizDbHelper;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Implementation of App Widget functionality.
@@ -24,9 +26,12 @@ public class QuizOver extends AppWidgetProvider {
 
     static Context mContext;
     static public int[] IDList;
+    static boolean hasWidget = false;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
+
+        Log.d(TAG, "updateAppWidget: ran");
 
         mContext = context;
 
@@ -51,19 +56,19 @@ public class QuizOver extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         IDList = appWidgetIds;
         for (int appWidgetId : appWidgetIds) {
-            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetManager.getAppWidgetIds(new ComponentName(context, QuizOver.class)), R.id.quiz_over_id);
+
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
     @Override
     public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
+        hasWidget = true;
     }
 
     @Override
     public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
+        hasWidget = false;
     }
 
     static private Cursor readData() {

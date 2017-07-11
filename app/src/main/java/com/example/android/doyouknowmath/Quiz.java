@@ -259,32 +259,31 @@ public class Quiz extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putInt("Score", score);
                 mFirebaseAnalytics.logEvent("finish_quiz", bundle);
+
+                QuizDbHelper dbHelper = new QuizDbHelper(this);
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+
+                values.put(QuizContract.Quiz.COLUMN_NAME_QNAME, currentQuiz);
+
+                float calcScore = (float) score / numberOfQuestions;
+
+                values.put(QuizContract.Quiz.COLUMN_NAME_SCORE, calcScore * 100.0);
+
+                db.delete(QuizContract.Quiz.TABLE_NAME, QuizContract.Quiz.COLUMN_NAME_QNAME + "=\'" + currentQuiz + "\'", null);
+
+                db.insert(QuizContract.Quiz.TABLE_NAME, null, values);
+
+                if (QuizOver.hasWidget)
+                {
+                    sendBroadcast(new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
+                            AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(QuizOver.mContext, QuizOver.class))));
+                    AppWidgetManager.getInstance(this).notifyAppWidgetViewDataChanged(AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, QuizOver.class)), R.id.quiz_over_id);
+                }
+
             }
 
         } else {
-
-            QuizDbHelper dbHelper = new QuizDbHelper(this);
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
-
-            values.put(QuizContract.Quiz.COLUMN_NAME_QNAME, currentQuiz);
-
-            float calcScore = (float) score / numberOfQuestions;
-
-            values.put(QuizContract.Quiz.COLUMN_NAME_SCORE, calcScore * 100.0);
-
-            db.delete(QuizContract.Quiz.TABLE_NAME, QuizContract.Quiz.COLUMN_NAME_QNAME + "=\'" + currentQuiz + "\'", null);
-
-            db.insert(QuizContract.Quiz.TABLE_NAME, null, values);
-
-            if (QuizOver.hasWidget)
-            {
-                sendBroadcast(new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,
-                        AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(QuizOver.mContext, QuizOver.class))));
-                AppWidgetManager.getInstance(this).notifyAppWidgetViewDataChanged(AppWidgetManager.getInstance(this).getAppWidgetIds(new ComponentName(this, QuizOver.class)), R.id.quiz_over_id);
-            }
-
-            AppWidgetManager.getInstance(this);
             submit.setText(R.string.defualt_button_text);
             questionNumber = 0;
             hasCompleted = false;

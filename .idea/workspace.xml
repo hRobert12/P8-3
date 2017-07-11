@@ -69,11 +69,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="QuizWidgetFactory.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="578">
+              <caret line="43" column="41" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Quiz.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/Quiz.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-987">
-              <caret line="106" column="62" selection-start-line="106" selection-start-column="62" selection-end-line="106" selection-end-column="62" />
+            <state relative-caret-position="611">
+              <caret line="285" column="16" selection-start-line="285" selection-start-column="16" selection-end-line="285" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#5172#5199#0" expanded="true" />
@@ -81,12 +93,12 @@
                 <element signature="e#8439#8466#0" expanded="true" />
                 <element signature="method#radioButtonClick#0;class#Quiz#0" expanded="false" />
                 <element signature="method#checkboxClick#0;class#Quiz#0" expanded="false" />
-                <element signature="e#12175#12203#0" expanded="true" />
-                <element signature="e#13917#13944#0" expanded="true" />
-                <element signature="e#15008#15035#0" expanded="true" />
-                <element signature="e#15671#15698#0" expanded="true" />
-                <element signature="e#16176#16177#0" expanded="true" />
-                <element signature="e#16214#16215#0" expanded="true" />
+                <element signature="e#12183#12211#0" expanded="true" />
+                <element signature="e#13925#13952#0" expanded="true" />
+                <element signature="e#15016#15043#0" expanded="true" />
+                <element signature="e#15679#15706#0" expanded="true" />
+                <element signature="e#16184#16185#0" expanded="true" />
+                <element signature="e#16222#16223#0" expanded="true" />
                 <element signature="method#compareArrays#0;class#Quiz#0" expanded="false" />
               </folding>
             </state>
@@ -111,19 +123,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
               <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_main.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -177,10 +176,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QuizOver.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="QuizOver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizOver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
+            <state relative-caret-position="119">
               <caret line="33" column="43" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
               <folding>
                 <element signature="e#2340#2341#0" expanded="true" />
@@ -2292,11 +2291,11 @@
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizAdpter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_quiz.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/Quiz.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizOver.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/Quiz.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java" />
       </list>
     </option>
   </component>
@@ -3329,16 +3328,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="92" column="13" selection-start-line="92" selection-start-column="13" selection-end-line="92" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3377,28 +3366,6 @@
         <state relative-caret-position="17">
           <caret line="1" column="15" selection-start-line="1" selection-start-column="15" selection-end-line="1" selection-end-column="15" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/Quiz.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-987">
-          <caret line="106" column="62" selection-start-line="106" selection-start-column="62" selection-end-line="106" selection-end-column="62" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5172#5199#0" expanded="true" />
-            <element signature="e#6263#6290#0" expanded="true" />
-            <element signature="e#8439#8466#0" expanded="true" />
-            <element signature="method#radioButtonClick#0;class#Quiz#0" expanded="false" />
-            <element signature="method#checkboxClick#0;class#Quiz#0" expanded="false" />
-            <element signature="e#12175#12203#0" expanded="true" />
-            <element signature="e#13917#13944#0" expanded="true" />
-            <element signature="e#15008#15035#0" expanded="true" />
-            <element signature="e#15671#15698#0" expanded="true" />
-            <element signature="e#16176#16177#0" expanded="true" />
-            <element signature="e#16214#16215#0" expanded="true" />
-            <element signature="method#compareArrays#0;class#Quiz#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3444,13 +3411,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizOver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
+        <state relative-caret-position="119">
           <caret line="33" column="43" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
           <folding>
             <element signature="e#2340#2341#0" expanded="true" />
             <element signature="e#2372#2373#0" expanded="true" />
             <element signature="e#2433#2434#0" expanded="true" />
             <element signature="e#2466#2467#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/Quiz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="611">
+          <caret line="285" column="16" selection-start-line="285" selection-start-column="16" selection-end-line="285" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5172#5199#0" expanded="true" />
+            <element signature="e#6263#6290#0" expanded="true" />
+            <element signature="e#8439#8466#0" expanded="true" />
+            <element signature="method#radioButtonClick#0;class#Quiz#0" expanded="false" />
+            <element signature="method#checkboxClick#0;class#Quiz#0" expanded="false" />
+            <element signature="e#12183#12211#0" expanded="true" />
+            <element signature="e#13925#13952#0" expanded="true" />
+            <element signature="e#15016#15043#0" expanded="true" />
+            <element signature="e#15679#15706#0" expanded="true" />
+            <element signature="e#16184#16185#0" expanded="true" />
+            <element signature="e#16222#16223#0" expanded="true" />
+            <element signature="method#compareArrays#0;class#Quiz#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/android/doyouknowmath/QuizWidgetFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="43" column="41" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -33,24 +32,18 @@ public class QuizWidgetFactory implements RemoteViewsService.RemoteViewsFactory 
 
     @Override
     public void onDataSetChanged() {
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
+
+
                 cursor = context.getContentResolver().query(
                         Uri.parse("content://com.example.android.doyouknowmath/Quizes"),
                         null,
                         null,
                         null,
                         null);
-                return null;
-            }
 
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
                 posOfID = cursor.getColumnIndex(QuizContract.Quiz._ID);
-            }
-        }.execute();
+
+
 
 
     }
